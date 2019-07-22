@@ -1,0 +1,98 @@
+\newcommand*{\ttfamilywithbold}{\fontfamily{lmtt}\selectfont}
+\newsavebox{\proofbox}
+
+\newcommand{\highli}[1]{\cellcolor{yellow}#1}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{53}}%
+\newcommand{\lmark}{\raisebox{-.2ex}{{\ding{213}}}}
+\newcommand{\rmark}{\raisebox{.30ex}{{\rotatebox[origin=c]{-180}{\lmark}}}}
+
+
+\newcommand{\coqp}{{\Large{\color{black}{$\checkmark$}}\xspace}}
+\newcommand{\cadep}{{\color{gray}{$\checkmark$}}\xspace}
+\newcommand{\both}{{\coqp\nolinebreak\kern-0.7em\cadep}}
+\newcommand{\none}{{\color{black}\xmark}\xspace}
+
+\newcommand{\coq}{Coq\xspace}
+\newcommand{\cavsig}{\Sigma_{1}}
+\newcommand{\coqsig}{\Sigma_{0}}
+
+\newcommand{\rem}[1]{\textcolor{red}{[#1]}}
+
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\smtcoq}{SMTCoq\xspace}
+\newcommand{\smtlib}{SMT-LIB~2\xspace}
+\newcommand{\coqhammer}{CoqHammer\xspace}
+\newcommand{\cvcfour}{CVC4\xspace}
+\newcommand{\smt}{SMT\xspace}
+\newcommand{\sygus}{SyGuS\xspace}
+
+\newcommand{\op}{\ensuremath{\diamond}\xspace}
+\newcommand{\rel}{\ensuremath{\bowtie}\xspace}
+
+\newcommand{\teq}{\ensuremath{=}\xspace}
+\newcommand{\tneq}{\ensuremath{\not\teq}\xspace}
+
+\newcommand{\true}{\ensuremath{\top}\xspace}
+\newcommand{\false}{\ensuremath{\bot}\xspace}
+\newcommand{\maxs}{\ensuremath{\text{max}_s}\xspace}
+\newcommand{\mins}{\ensuremath{\text{min}_s}\xspace}
+
+\newcommand{\til}{,\ldots,}
+\newcommand{\sig}{\ensuremath{\Sigma}\xspace}
+\newcommand{\sigbv}{\ensuremath{\sig_{BV}}\xspace}
+\newcommand{\sort}{\ensuremath{\sigma}\xspace}
+\newcommand{\sortbv}[1]{\ensuremath{\sort_{[#1]}}\xspace}
+\newcommand{\bvaddf}{\ensuremath{+}\xspace}
+\newcommand{\bvsubf}{\ensuremath{-}\xspace}
+\newcommand{\bvandf}{\ensuremath{\mathrel{\&}}\xspace}
+\newcommand{\bvashrf}{\ensuremath{\mathop{>\kern-.3em>_a}}\xspace}
+\newcommand{\bvconcatf}{\ensuremath{\circ}\xspace}
+\newcommand{\bvlshrf}{\ensuremath{\mathop{>\kern-.3em>}}\xspace}
+\newcommand{\bvmulf}{\ensuremath{\cdot}\xspace}
+\newcommand{\bvorf}{\ensuremath{\mid}\xspace}
+\newcommand{\bvsgef}{\ensuremath{\ge_s}\xspace}
+\newcommand{\bvsgtf}{\ensuremath{>_s}\xspace}
+\newcommand{\bvshlf}{\ensuremath{\mathop{<\kern-.3em<}}\xspace}
+\newcommand{\bvslef}{\ensuremath{\le_s}\xspace}
+\newcommand{\bvsltf}{\ensuremath{<_s}\xspace}
+\newcommand{\bvudivf}{\ensuremath{\div}\xspace}
+\newcommand{\bvugef}{\ensuremath{\geq_u}\xspace}
+\newcommand{\bvugtf}{\ensuremath{>_u}\xspace}
+\newcommand{\bvultf}{\ensuremath{<_u}\xspace}
+\newcommand{\bvulef}{\ensuremath{\leq_u}\xspace}
+\newcommand{\bvuremf}{\ensuremath{\bmod}\xspace}
+\newcommand{\bvnegf}{\ensuremath{-}\xspace}
+\newcommand{\bvnotf}{\ensuremath{{\sim}\,}\xspace}
+
+\newcommand{\booland}[2]{\ensuremath{#1\,\wedge\,#2}\xspace}
+\newcommand{\boolnot}[1]{\ensuremath{\neg #1}\xspace}
+\newcommand{\boolor}[2]{\ensuremath{#1\,\vee\,#2}\xspace}
+\newcommand{\bvadd}[2]{\ensuremath{#1 \bvaddf #2}\xspace}
+\newcommand{\bvand}[2]{\ensuremath{#1 \bvandf #2}\xspace}
+\newcommand{\bvashr}[2]{\ensuremath{#1 \bvashrf #2}\xspace}
+\newcommand{\bvconcat}[2]{\ensuremath{#1 \bvconcatf #2}\xspace}
+\newcommand{\bvextract}[3]{\ensuremath{#1[#2:#3]}\xspace}
+\newcommand{\bvlshr}[2]{\ensuremath{#1 \bvlshrf #2}\xspace}
+\newcommand{\bvmul}[2]{\ensuremath{#1 \bvmulf #2}\xspace}
+\newcommand{\bvneg}[1]{\ensuremath{\bvnegf#1}\xspace}
+\newcommand{\bvnot}[1]{\ensuremath{\bvnotf\!#1}\xspace}
+\newcommand{\bvor}[2]{\ensuremath{#1 \bvorf #2}\xspace}
+\newcommand{\bvsge}[2]{\ensuremath{#1 \bvsgef #2}\xspace}
+\newcommand{\bvsgt}[2]{\ensuremath{#1 \bvsgtf #2}\xspace}
+\newcommand{\bvshl}[2]{\ensuremath{#1 \bvshlf #2}\xspace}
+\newcommand{\bvsle}[2]{\ensuremath{#1 \bvslef #2}\xspace}
+\newcommand{\bvslt}[2]{\ensuremath{#1 \bvsltf #2}\xspace}
+\newcommand{\bvsub}[2]{\ensuremath{#1 \bvsubf #2}\xspace}
+\newcommand{\bvudiv}[2]{\ensuremath{#1 \bvudivf #2}\xspace}
+\newcommand{\bvuge}[2]{\ensuremath{#1 \bvugef #2}\xspace}
+\newcommand{\bvugt}[2]{\ensuremath{#1 \bvugtf #2}\xspace}
+\newcommand{\bvule}[2]{\ensuremath{#1 \bvulef #2}\xspace}
+\newcommand{\bvult}[2]{\ensuremath{#1 \bvultf #2}\xspace}
+\newcommand{\bvurem}[2]{\ensuremath{#1 \bvuremf #2}\xspace}
+\newcommand{\dist}[2]{\ensuremath{#1 \tn\left(  #2}\xspace}
+\newcommand{\equal}[2]{\ensuremath{#1 \teq #2}\xspace}
+\newcommand{\imp}[2]{\ensuremath{#1\hspace{0.1em}\Rightarrow\hspace{0.1em}#2}\xspace}
+
+
