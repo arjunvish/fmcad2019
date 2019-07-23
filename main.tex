@@ -6,7 +6,6 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
-\usepackage{minted}
 \usepackage{tcolorbox}
 \usepackage{etoolbox}
 \BeforeBeginEnvironment{minted}{\begin{tcolorbox}}%
@@ -293,15 +292,23 @@ and lemmas in the non-dependent representation,
 before using the library's functor to transform it 
 into the required dependent type. \rem{citations}
 
-We were also assisted by CoqHammer
+We were also assisted by CoqHammer - a tool that 
+solves proof goals by learning from previous proofs, 
+and by dispatching proofs to external automated provers
+ - in solving subgoals.
+ 
+\section{Conclusion}
+\label{conc}
+\rem{Is this a good place to mention that we submitted this 
+	work to PxTP?} We present here our work in an ongoing 
+project of using invertibility conditions to facilitate a 
+quantifier instantiation technique that is deployed in 
+the \cvcfour SMT solver. Our contribution was to 
+prove a subset of these invertibility conditions in the 
+\coq proof assistant for a general bit-width. We plan 
+to extend this library with operators such as division and 
+modulus in the future, and prove a bigger set of invertibility conditions. 
 
-
-\section*{Acknowledgment}
-
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
 
 \section*{References}
 
