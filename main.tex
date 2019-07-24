@@ -72,7 +72,7 @@ This report describes ongoing work of verifying invertibility
 conditions for the theory of fixed-width bit-vectors, 
 that are used 
 to solve quantified bit-vector formulas in the 
-Satisfiability Modulo Theories ($\smt$) solver $\cvcfour$. 
+Satisfiability Modulo Theories (SMT) solver CVC4. 
 This work complements the verification 
 efforts of previous work by proving a subset of these
 invertibility conditions in the \coq proof assistant. 
@@ -96,7 +96,7 @@ instantiation technique to reason about quantified formulas.
 As presented in \cite{b1}, a quantifier instantiation 
 method using invertibility conditions benefits from a smaller 
 number of instantiations, resulting in a more efficient 
-solver.An invertibility condition for a literal specifies 
+solver. An invertibility condition for a literal specifies 
 the conditions under which that literal is solvable. For 
 instance, $\equal{\bvadd{x}{s}}{t}$ is unconditionally solvable 
 for $x$, where $x$, $s$, and $t$ are bit-vectors of the 
@@ -117,7 +117,7 @@ bit-vector theory of the \smtlib standard
 (in the previous two examples, the operators are 
 $\bvaddf$ and $\bvandf$, 
 and the predicate is equality, or $\teq$) and verified them 
-for bit-widths up to 65. The correctness of the quantifier 
+using SMT solvers, for bit-widths up to 65. The correctness of the quantifier 
 instantiation technique that uses these equivalences,
 however, assumes the equivalences to be valid in the 
 theory of bit-vectors for any bit-width $n$.
@@ -127,11 +127,11 @@ SMT-solvers' inability to express bit-vectors over
 arbitrary bit-widths. Reference \cite{b2} encoded 
 these problems over the theory of non-linear arithmetic 
 with uninterpreted functions. The corresponding verification 
-efforts were still unable to prove over a quarter of the 
+attempt was still unable to prove over a quarter of the 
 equivalences. We complement these works by proving a 
 representative subset of invertibility equivalences in 
 the \coq proof assistant. We extended a bit-vector 
-library (\rem{cite SMTCoq}), and proved 18 invertibility equivalences.
+library in Coq (\rem{cite SMTCoq}), and proved 18 invertibility equivalences.
 
 
 \section{Preliminaries}
