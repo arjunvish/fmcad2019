@@ -121,7 +121,7 @@ for the literal $\equal{\bvadd{x}{s}}{t}$ is
 simply $\true$, or true. This is represented by the equivalence 
 $\equal{\bvadd{x}{s}}{t} \iff \true$. 
 A more interesting case is that 
-of bit-wise conjunction, which is represented by the 
+of bit-wise conjunction (\bvand{}{}), which is represented by the 
 equivalence 
 $\equal{\bvand{x}{s}}{t} \iff \equal{\bvand{t}{s}}{t}$.
 Reference \cite{b1} found 
@@ -155,14 +155,14 @@ first-order logic with equality
 and consider the \smtlib~\cite{SMTLib2010} 
 \footnote{The \smtlib theory is defined at \url{http://www.smt-lib.org/theories.shtml}}
 theory of bit-vectors, $\sigbv$.
-An invertibility condition for a variable $x$ 
+In general, we write
+$\psi[x_0, ..., x_n]$ to denote a formula whose free variables are 
+from the set $\{x_0, ..., x_n\}$.
+An \emph{invertibility condition} for a variable $x$ 
 in a $\sigbv$-literal $\ell[x,s,t]$ is
 a formula $IC[s,t]$ such that
 $\forall s.\,\forall t.\,IC[s,t] \Leftrightarrow \exists x.\ell[x,s,t]$ is valid in 
-the theory of fixed-width bit-vectors. In general, 
-$\psi[x_0, ..., x_n]$ is a formula parameterized 
-by variables $x_0, ..., x_n$.
-
+the theory of fixed-width bit-vectors. 
 In what follows, we denote by $\coqsig$ the 
 sub-signature of $\sigbv$
 containing the predicate symbols 
@@ -186,7 +186,7 @@ $\bvmulf$, $\bvudivf$, $\bvuremf$ (corresponding to subtraction,
 multiplication, division and remainder), 
 and $\bvconcatf$ (concatenation).
 
-Reference \cite{b1} define invertibility conditions for 
+Reference \cite{b1} defines invertibility conditions for 
 a representative set of literals $\ell$ having a single occurrence of $x$,
 that involve the bit-vector operators of $\cavsig$.
 The soundness of the technique proposed in that work 
@@ -204,7 +204,7 @@ which one needs to prove valid for \emph{all} $n >0$.
 Reference \cite{b1} was able to prove these 
 equivalences for values of $n$ from $1$ to $65$.
 
-Reference \cite{b2} proved over half of the 160 
+Reference \cite{b2} proves over half of the 160 
 equivalences for arbitrary bit-widths 
 using \smt-solvers by encoding the equivalences 
 into theories which the solvers could deal with.
@@ -214,12 +214,14 @@ that \cite{b2} failed to prove. We chose $\coqsig$ as a
 representative subset of $\cavsig$, and proved 18 of the 
 equivalences, 11 of which were unproved by \cite{b2}. Our 
 results are summarized in \Cref{icresults}.
-In the table, \coqp means that the invertibility 
+There, \coqp means that the invertibility 
 equivalence was successfully verified in \coq
 but not in~\cite{b2}, while \cadep means the 
 opposite; \both means that the invertibility 
 equivalence was verified using both approaches, 
-and \none means that it was verified with neither.
+and \none that it was verified with neither.
+Meta-symbol $\bowtie$ ranges over the operators 
+in the table's top row.
 
 \begin{table}
 	\begin{center}
@@ -259,7 +261,7 @@ and \none means that it was verified with neither.
 		}
 	\end{center}
 	\caption{Results of proving invertibility equivalences 
-		for literals in $\coqsig$.
+		for literals over $\coqsig$. 
 	}\label{icresults} 
 \end{table} 
 
@@ -267,8 +269,8 @@ and \none means that it was verified with neither.
 \section{Library and Proof Details}
 \label{proofs}
 We used a library originally developed for the
-\smtcoq tool~\cite{DBLP:conf/cav/EkiciMTKKRB17} 
-- a \coq plugin 
+\smtcoq tool~\cite{DBLP:conf/cav/EkiciMTKKRB17},
+a \coq plugin 
 that dispatches proof goals to \smt-solvers.
 Although there are other libraries such as 
 \coq's bit-vector library~\cite{coqbvlib}, 
@@ -292,10 +294,10 @@ before using the library's functor to transform it
 into the required dependent type
 \footnote{Both the library and the proofs of invertibility equivalences can be found at \url{https://github.com/ekiciburak/bitvector/tree/pxtp2019}}.
 
-We were also assisted by CoqHammer - a tool that 
+We were also assisted by CoqHammer, a tool that 
 solves proof goals by learning from previous proofs, 
-and by outsourcing proofs to external automated provers
- - in solving subgoals.
+and by outsourcing proofs of certain subgoals 
+to external automated provers.
  
 \section{Conclusion}
 \label{conc}
