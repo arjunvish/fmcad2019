@@ -21,6 +21,7 @@
 \usepackage{semantic}
 \usepackage{tikz}
 \usepackage{wasysym}
+\usepackage{hyperref}
 \usepackage{cleveref}
 
 \BeforeBeginEnvironment{minted}{\begin{tcolorbox}}%
@@ -54,7 +55,7 @@ Iowa City, USA
 %arjun-viswanathan@uiowa.edu
 }
 \IEEEauthorblockA{
-\IEEEauthorrefmark{3}\textit{Computational Logic Group},
+\IEEEauthorrefmark{3}\textit{Department of Computer Science},
 \textit{University of Innsbruck},
 Innsbruck, Austria
 %burak.ekici@uibk.ac.at
@@ -92,14 +93,15 @@ invertibility conditions in the \coq proof assistant.
 \end{abstract}
 
 \begin{IEEEkeywords}
-bit-vectors, \coq, proof assistant, invertibility conditions
+bit-vectors, \coq, invertibility conditions
 \end{IEEEkeywords}
 
 \section{Introduction}
 \label{sec:intro}
 The theory of bit-vectors can be used to model problems 
-in various applications such as hardware circuit analysis, 
-bounded model checking, and symbolic execution. Most of 
+in various applications such as hardware 
+circuit analysis~\cite{Gupta:1993:RSM:259794.259827}, 
+bounded model checking~\cite{Armando2008BoundedMC}, and symbolic execution~\cite{Cadar:2006:EAG:1180405.1180445}. Most of 
 these applications require reasoning about quantified 
 formulas over bit-vectors. Few SMT solvers can deal 
 with this fragment, one of which is \cvcfour. \cvcfour 
@@ -116,7 +118,7 @@ same sort and $\bvaddf$ is bit-vector addition.
 A general solution or inverse for $x$ is $\bvsub{t}{s}$, and 
 since $x$ is always invertible, the invertibility condition 
 for the literal $\equal{\bvadd{x}{s}}{t}$ is 
-simply $\true$. This is represented by the equivalence 
+simply $\true$, or true. This is represented by the equivalence 
 $\equal{\bvadd{x}{s}}{t} \iff \true$. 
 A more interesting case is that 
 of bit-wise conjunction, which is represented by the 
@@ -143,42 +145,26 @@ attempt was still unable to prove over a quarter of the
 equivalences. We complement these works by proving a 
 representative subset of invertibility equivalences in 
 the \coq proof assistant. We extended a bit-vector 
-library in Coq (\rem{cite SMTCoq}), and proved 18 invertibility equivalences.
+library in Coq~\cite{DBLP:conf/cav/EkiciMTKKRB17}, and proved 18 invertibility equivalences.
 
-
-\section{Preliminaries}
-\label{prelim}
+\section{Invertibility Equivalence Proofs}
+\label{ieproofs}
 We assume the usual terminology of many-sorted 
 first-order logic with equality
-(see, e.g.,\rem{cite} for more details).  
-We denote equality 
-by $=$, and use $x\neq y$ as an abbreviation for $\neg(x=y)$.  
-The signature $\sigbv$ of the \smtlib theory of fixed-width bit-vectors
-includes a unique sort for each positive integer $n$,
-which we denote by $\sortbv{n}$.  
-For every positive integer $n$ and a bit-vector of
-width $n$, the signature includes a constant of sort $\sortbv{n}$ 
-in $\sigbv$ representing that
-bit-vector, which we denote as a binary string of length $n$.
-The function and predicate symbols of $\sigbv$ are as
-described in the \smtlib standard.
+(see, e.g.,~\cite{ENDERTON200167} for more details),
+and consider the \smtlib~\cite{SMTLib2010} 
+\footnote{The \smtlib theory is defined at \url{http://www.smt-lib.org/theories.shtml}}
+theory of bit-vectors, $\sigbv$.
+An invertibility condition for a variable $x$ 
+in a $\sigbv$-literal $\ell[x,s,t]$ is
+a formula $IC[s,t]$ such that
+$\forall s.\,\forall t.\,IC[s,t] \Leftrightarrow \exists x.\ell[x,s,t]$ is valid in 
+the theory of fixed-width bit-vectors. In general, 
+$\psi[x_0, ..., x_n]$ is a formula parameterized 
+by variables $x_0, ..., x_n$.
 
-Formulas of
-$\sigbv$ are built from variables (sorted by the sorts $\sortbv{n}$),
-bit-vector constants, and the function and predicate symbols of $\sigbv$,
-along with the usual logical connectives and quantifiers.  
-%We write
-%$\psi[x_{1}\til x_{n}]$ to represent a formula whose free %variables are
-%from $\{x_{1}\til x_{n}\}$. 
-
-The semantics of $\sigbv$-formulas is given by interpretations that extend a
-single many-sorted first-order structure so that the domain of every sort
-$\sortbv{n}$ is the set of bit-vectors of bit-width $n$, and the function and
-predicate symbols are interpreted as specified by the \smtlib standard.  A
-$\sigbv$-formula is said to be \emph{valid} in the theory of fixed-width bit-vectors
-if it evaluates to true in every such interpretation.
-
-In what follows, we denote by $\coqsig$ the sub-signature of $\sigbv$
+In what follows, we denote by $\coqsig$ the 
+sub-signature of $\sigbv$
 containing the predicate symbols 
 $\bvultf$, $\bvugtf$, $\bvulef$, $\bvugef$ 
 (corresponding to strong and weak unsigned comparisons
@@ -198,25 +184,18 @@ between bit-vectors, respectively), as
 well as the function symbols $\bvsubf$,
 $\bvmulf$, $\bvudivf$, $\bvuremf$ (corresponding to subtraction,
 multiplication, division and remainder), 
-and $\bvconcatf$ (concatenation).  
-%We use $0$ to represent the bit-vectors composed of all $0$-bits.
-%Its numerical or bit-vector interpretation should be clear from context.  
-%Using bit-wise negation $\bvnotf$, we can express the bitvectors composed
-%of all $1$-bits by $\bvnot{0}$.
- 
-
-\section{Invertibility Equivalence Proofs}
-\label{ieproofs}
-An invertibility condition for a variable $x$ in a $\sigbv$-literal $\ell[x,s,t]$ is
-a formula $IC[s,t]$ such that
-$\forall s.\,\forall t.\,IC[s,t] \Leftrightarrow \exists x.\ell[x,s,t]$ is valid in the theory of fixed-width bit-vectors.
+and $\bvconcatf$ (concatenation).
 
 Reference \cite{b1} define invertibility conditions for 
 a representative set of literals $\ell$ having a single occurrence of $x$,
 that involve the bit-vector operators of $\cavsig$.
 The soundness of the technique proposed in that work 
 relies on the correctness of the invertibility conditions.
-Every literal $\ell[x,s,t]$ and its corresponding invertibility condition $IC[s,t]$
+The signature $\sigbv$ of the \smtlib theory of fixed-width bit-vectors
+includes a unique sort for each positive integer $n$,
+which we denote by $\sortbv{n}$.
+Thus, every literal $\ell[x,s,t]$ and 
+its corresponding invertibility condition $IC[s,t]$
 induce the \emph{invertibility equivalence}
 \[
 \forall s:\sortbv{n}.\,\forall t:\sortbv{n}.\,IC[s,t] \Leftrightarrow \exists x:\sortbv{n}.\ell[x,s,t] \ .
@@ -235,6 +214,12 @@ that \cite{b2} failed to prove. We chose $\coqsig$ as a
 representative subset of $\cavsig$, and proved 18 of the 
 equivalences, 11 of which were unproved by \cite{b2}. Our 
 results are summarized in \Cref{icresults}.
+In the table, \coqp means that the invertibility 
+equivalence was successfully verified in \coq
+but not in~\cite{b2}, while \cadep means the 
+opposite; \both means that the invertibility 
+equivalence was verified using both approaches, 
+and \none means that it was verified with neither.
 
 \begin{table}
 	\begin{center}
@@ -282,10 +267,12 @@ results are summarized in \Cref{icresults}.
 \section{Library and Proof Details}
 \label{proofs}
 We used a library originally developed for the
-\smtcoq tool \rem{cite} - a \coq plugin 
+\smtcoq tool~\cite{DBLP:conf/cav/EkiciMTKKRB17} 
+- a \coq plugin 
 that dispatches proof goals to \smt-solvers.
 Although there are other libraries such as 
-\rem{cite Bedrock, SSRBit and the Coq library here},
+\coq's bit-vector library~\cite{coqbvlib}, 
+the Bedrock Bit Vectors Library~\cite{bbvlib}, and the SSRBit library~\cite{ssrbit},
 we choose this library because it was developed 
 for \smtlib bit-vectors, and as a result, had many 
 relevant lemmas for our proofs already available.
@@ -302,25 +289,36 @@ representation. This separation makes it easier to
 expand the library - one can represent operators 
 and lemmas in the non-dependent representation, 
 before using the library's functor to transform it 
-into the required dependent type. \rem{citations}
+into the required dependent type
+\footnote{Both the library and the proofs of invertibility equivalences can be found at \url{https://github.com/ekiciburak/bitvector/tree/pxtp2019}}.
 
 We were also assisted by CoqHammer - a tool that 
 solves proof goals by learning from previous proofs, 
-and by deploying proofs to external automated provers
+and by outsourcing proofs to external automated provers
  - in solving subgoals.
  
 \section{Conclusion}
 \label{conc}
-\rem{Is this a good place to mention that we submitted this 
-	work to PxTP?} We present here our work in an ongoing 
+We present here our work in an ongoing 
 project of using invertibility conditions to facilitate a 
 quantifier instantiation technique that is deployed in 
 the \cvcfour SMT solver. Our contribution was to 
 prove a subset of these invertibility conditions in the 
-\coq proof assistant for a general bit-width. We plan 
-to extend this library with operators such as division and 
-modulus in the future, and prove a bigger set of invertibility conditions. 
+\coq proof assistant for a general bit-width. 
 
+\section{Future Work}
+\label{future}
+This work was accepted and is to be presented at PxTP 
+2019~\cite{b3} as an extended abstract.
+In the future, we plan to expand this library 
+with operators such as division and 
+modulus, and prove a larger set of 
+invertibility conditions. The next goal would be 
+to extend SMTCoq so it can certify proofs 
+over the newly added operators of the Coq library. 
+Another potential 
+direction of future work is to recreate the library 
+in the Lean Theorem Prover \cite{conf/cade/MouraKADR15}.
 
 %\section*{References}
 %
